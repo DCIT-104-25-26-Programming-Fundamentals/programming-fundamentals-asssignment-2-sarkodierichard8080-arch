@@ -75,8 +75,117 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
 #include <vector>
 #include <string>
 using namespace std;
 
+/**
+ * Prompts the user for a task description and adds it to the tasks list.
+ *
+ * @param tasks The list of tasks to add to.
+ */
+void addTask(vector<string>& tasks) {
+    cin.ignore(); // Clear leftover newline from previous numeric input.
+    string description;
+    cout << "Enter task: ";
+    getline(cin, description);
+
+    tasks.push_back(description);
+    cout << "Task added: \"" << description << "\"" << endl;
+}
+
+/**
+ * Displays all current tasks, numbered from 1.
+ * Prints a friendly message if there are no tasks yet.
+ *
+ * @param tasks The list of tasks to display.
+ */
+void viewTasks(const vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << "You have no tasks yet. Add one from the menu!" << endl;
+        return;
+    }
+
+    cout << "Your Tasks:" << endl;
+    for (size_t i = 0; i < tasks.size(); i++) {
+        cout << (i + 1) << ". " << tasks[i] << endl;
+    }
+}
+
+/**
+ * Shows the current tasks, asks the user which one to delete,
+ * and removes it from the list if the number is valid.
+ *
+ * @param tasks The list of tasks to delete from.
+ */
+void deleteTask(vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << "There are no tasks to delete." << endl;
+        return;
+    }
+
+    viewTasks(tasks);
+    int taskNumber;
+    cout << "Enter task number to delete: ";
+    cin >> taskNumber;
+
+    int index = taskNumber - 1;
+
+    if (index < 0 || index >= static_cast<int>(tasks.size())) {
+        cout << "Error: Invalid task number." << endl;
+        return;
+    }
+
+    string removedTask = tasks[index];
+    tasks.erase(tasks.begin() + index);
+    cout << "Task \"" << removedTask << "\" has been removed." << endl;
+}
+
+/**
+ * Prints the main menu options to the console.
+ */
+void printMenu() {
+    cout << "============================" << endl;
+    cout << "     TO-DO LIST MENU" << endl;
+    cout << "============================" << endl;
+    cout << "1. Add task" << endl;
+    cout << "2. View tasks" << endl;
+    cout << "3. Delete task" << endl;
+    cout << "4. Quit" << endl;
+}
+
+int main() {
+    vector<string> tasks;
+    bool running = true;
+
+    while (running) {
+        printMenu();
+        int choice;
+        cout << "Enter your choice (1-4): ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addTask(tasks);
+                break;
+            case 2:
+                viewTasks(tasks);
+                break;
+            case 3:
+                deleteTask(tasks);
+                break;
+            case 4:
+                cout << "Goodbye!" << endl;
+                running = false;
+                break;
+            default:
+                cout << "Error: Please enter a number between 1 and 4." << endl;
+        }
+
+        cout << endl;
+    }
+
+    return 0;
+}
