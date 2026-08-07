@@ -54,6 +54,69 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
 using namespace std;
 
+/**
+ * Prints the multiplication table for a single number, from 1 to 12.
+ *
+ * @param num The number to build the table for.
+ */
+void printTable(int num) {
+    cout << "Multiplication Table for " << num << ":" << endl;
+
+    for (int i = 1; i <= 12; i++) {
+        cout << num << "  x  " << i << "  =  " << (num * i) << endl;
+    }
+}
+
+/**
+ * Prints the multiplication tables for every number from 1 to n,
+ * separated by a divider line.
+ *
+ * @param n The highest number to print a table for.
+ */
+void printTablesUpTo(int n) {
+    for (int num = 1; num <= n; num++) {
+        printTable(num);
+
+        if (num < n) {
+            cout << "---------------------------" << endl;
+        }
+    }
+}
+
+int main() {
+    // -------------------------------------------------------------------
+    // PART A — Single Table
+    // -------------------------------------------------------------------
+    int singleNumber;
+    cout << "Enter a number: ";
+    cin >> singleNumber;
+
+    if (singleNumber <= 0) {
+        cout << "Error: Please enter a positive integer." << endl;
+        return 0;
+    }
+
+    printTable(singleNumber);
+
+    // -------------------------------------------------------------------
+    // PART B — Bonus: Tables from 1 to N
+    // -------------------------------------------------------------------
+    cout << endl << "=== Bonus: Tables from 1 to N ===" << endl;
+    int n;
+    cout << "Enter a number N: ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Error: Please enter a positive integer." << endl;
+        return 0;
+    }
+
+    cout << "---------------------------" << endl;
+    printTablesUpTo(n);
+
+    return 0;
+}
